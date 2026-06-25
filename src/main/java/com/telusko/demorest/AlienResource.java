@@ -25,6 +25,7 @@ public class AlienResource {
 	return repo.getAliens();
 	}
 	
+	//Can access specific id details of Alien instance a.
 	@GET
 	@Path("alien/{id}")
 	@Produces(MediaType.APPLICATION_XML)
