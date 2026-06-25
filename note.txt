@@ -1,0 +1,62 @@
+                                                         jersey rest api
+
+1) After creating the jersey project using maven use glassfish.jersey quickstart artifact not sun.jersey
+2)to remove the error from index.jsp ad the targeted runtime in properties and set project facets webmodule to version 6.0 and java version to 21jre 
+
+                                                         creating your own rest api  // and rturning data in list format  
+
+//Created the Alien class Resource
+@XmlRootElement( it is important for xml to read the root file)
+public class Alien {
+ 
+	private String name;
+	private int points;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getPoints() {
+		return points;
+	}
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	
+}
+
+
+//Alien Resource class for Creating objects and providing data
+@Path("aliens")//describe server to where point and see.
+
+public class AlienResource {
+   
+	@GET(Api)
+	@Produces(MediaType.APPLICATION_XML)(Which output to produce.)
+	public List<Alien> getAlien() {
+	
+	System.out.println("getting called");
+	Alien a1 = new Alien();
+	a1.setName("Sanjiv");
+	a1.setPoints(20);
+	
+	Alien a2 = new Alien();
+	a2.setName("Rajiv");
+	a2.setPoints(70);
+	
+	List<Alien> aliens= Arrays.asList(a1,a2); 
+	
+	return aliens;
+	}
+}                                                   
+
+
+
+
+// Annotations
+@GET-For fetching the resource
+@POST- for creating a resource
+@PUT-for updating a resource.
+@DELETE-for deleting a resource.
