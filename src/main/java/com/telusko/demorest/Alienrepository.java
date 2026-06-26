@@ -85,8 +85,38 @@ public void create(Alien a1) {
 		e.printStackTrace();
 	}
 }
+
+public void update(Alien a1) {
+
+	try {
+		String query = "update alien set name=?, points=? where id=?";
+		pstmt= Connect.prepareStatement(query);
+		
+		
+		pstmt.setString(1, a1.getName());
+		pstmt.setInt(2, a1.getPoints());
+		pstmt.setInt(3, a1.getId());
+		
+		pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
 	
-	
+public void delete(int id) {
+
+	try {
+		String query = "DELETE FROM alien where id=?";
+		pstmt= Connect.prepareStatement(query);
+		
+		pstmt.setInt(1, id);
+		
+		pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}	
+
 //	List<Alien> alien;
 //	
 //    public Alienrepository(){

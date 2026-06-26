@@ -7,56 +7,248 @@
 
 //Created the Alien class Resource
 @XmlRootElement( it is important for xml to read the root file)
-public class Alien {
- 
-	private String name;
-	private int points;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getPoints() {
-		return points;
-	}
-	public void setPoints(int points) {
-		this.points = points;
-	}
-	
-	
+
+1. What is REST API?
+REST stands for Representational State Transfer.
+It is an architectural style used to create web services.
+REST APIs allow different applications to communicate over the HTTP protocol.
+Data is usually exchanged in JSON or XML format.
+
+Example
+
+Client (Postman/Browser)
+        │
+HTTP Request
+        │
+REST API
+        │
+Database
+        │
+HTTP Response
+2. Jersey (JAX-RS)
+Jersey is the Reference Implementation of JAX-RS.
+It is used to build RESTful Web Services in Java.
+It uses annotations instead of writing servlet code.
+3. Resource Class
+
+A Resource Class contains REST API methods.
+
+Example
+
+@Path("aliens")
+public class AlienResource {
+
 }
 
+Every HTTP request first comes to the Resource class.
 
-//Alien Resource class for Creating objects and providing data
-@Path("aliens")//describe server to where point and see.
+4. @Path
 
-public class AlienResource {
-   
-	@GET(Api)
-	@Produces(MediaType.APPLICATION_XML)(Which output to produce.)
-	public List<Alien> getAlien() {
-	
-	System.out.println("getting called");
-	Alien a1 = new Alien();
-	a1.setName("Sanjiv");
-	a1.setPoints(20);
-	
-	Alien a2 = new Alien();
-	a2.setName("Rajiv");
-	a2.setPoints(70);
-	
-	List<Alien> aliens= Arrays.asList(a1,a2); 
-	
-	return aliens;
-	}
-}                                                   
+Used to define the URL.
 
+Example
 
+@Path("aliens")
 
+Base URL
 
-// Annotations
-@GET-For fetching the resource
-@POST- for creating a resource
-@PUT-for updating a resource.
-@DELETE-for deleting a resource.
+http://localhost:8083/demorest/webapi/aliens
+
+Method level
+
+@Path("alien/{id}")
+
+URL becomes
+
+http://localhost:8083/demorest/webapi/aliens/alien/101
+5. HTTP Methods
+GET
+
+Used to retrieve data.
+
+@GET
+public List<Alien> getAliens()
+
+SQL
+
+SELECT * FROM alien;
+POST
+
+Used to insert data.
+
+@POST
+public Alien createAlien(Alien a1)
+
+SQL
+
+INSERT INTO alien VALUES(...);
+PUT
+
+Used to update existing data.
+
+@PUT
+public Alien updateAlien(Alien a1)
+
+SQL
+
+UPDATE alien
+SET name=?, points=?
+WHERE id=?;
+
+Your implementation also performs an Upsert:
+
+If record exists → Update
+If record doesn't exist → Insert
+DELETE
+
+Used to delete data.
+
+@DELETE
+@Path("alien/{id}")
+
+SQL
+
+DELETE FROM alien WHERE id=?;
+6. @Produces
+
+Specifies the response format.
+
+@Produces(MediaType.APPLICATION_JSON)
+
+or
+
+@Produces(MediaType.APPLICATION_XML)
+
+Jersey converts Java objects into JSON/XML automatically.
+
+7. @Consumes
+
+Specifies the request format accepted by the API.
+
+@Consumes(MediaType.APPLICATION_JSON)
+
+Incoming JSON
+
+{
+    "id":101,
+    "name":"Sandesh",
+    "points":90
+}
+
+is converted into
+
+Alien a1
+8. @PathParam
+
+Extracts values from the URL.
+
+Example
+
+GET /alien/101
+@PathParam("id")
+int id
+
+Here,
+
+id = 101
+9. Request Flow
+Postman
+      │
+HTTP Request
+      │
+Jersey
+      │
+Resource Class
+      │
+Repository
+      │
+Database
+      │
+Repository
+      │
+Resource
+      │
+Jersey
+      │
+JSON/XML Response
+      │
+Postman
+
+15. Serialization
+
+Converting
+
+Java Object
+
+↓
+
+JSON/XML
+
+Done automatically by Jersey.
+
+Example
+
+return alien;
+
+becomes
+
+{
+"id":101,
+"name":"Sandesh"
+}
+16. Deserialization
+
+Converting
+
+JSON/XML
+
+↓
+
+Java Object
+
+Incoming JSON
+
+{
+"id":101,
+"name":"Raj",
+"points":90
+}
+
+becomes
+
+Alien a1
+
+automatically.
+
+17. CRUD Operations
+HTTP Method	SQL	Purpose
+GET	SELECT	Read Data
+POST	INSERT	Add Data
+PUT	UPDATE	Modify Data
+DELETE	DELETE	Remove Data
+18. JSON vs XML
+JSON
+{
+"id":101,
+"name":"Sandesh",
+"points":90
+}
+XML
+<alien>
+    <id>101</id>
+    <name>Sandesh</name>
+    <points>90</points>
+</alien>
+
+Jersey can produce both formats using @Produces.
+
+19. Important Annotations
+Annotation	Purpose
+@Path	Defines URL
+@GET	Read Data
+@POST	Insert Data
+@PUT	Update Data
+@DELETE	Delete Data
+@Produces	Response Format
+@Consumes	Request Format
+@PathParam	Read Value from URL
