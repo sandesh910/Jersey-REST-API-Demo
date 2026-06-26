@@ -68,6 +68,13 @@
                  <groupId>org.glassfish.jersey.media</groupId>
                  <artifactId>jersey-media-jaxb</artifactId> 
 			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+			<dependency>
+			    <groupId>com.mysql</groupId>
+			    <artifactId>mysql-connector-j</artifactId>
+			    <version>9.7.0</version>
+			    <scope>compile</scope>
+			</dependency>
     </dependencies>
     <properties>
         <jersey.version>5.0.0-M1</jersey.version>

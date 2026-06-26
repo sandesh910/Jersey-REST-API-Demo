@@ -38,7 +38,7 @@ public class AlienResource {
 	//Post request to insert data to database
 	@POST
 	@Path("alien")
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Alien createAlien(Alien a1) {
 		System.out.println(a1);
