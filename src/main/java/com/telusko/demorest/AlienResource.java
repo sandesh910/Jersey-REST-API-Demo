@@ -2,6 +2,7 @@ package com.telusko.demorest;
 
 import java.util.List;
 
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -16,7 +17,7 @@ public class AlienResource {
 	Alienrepository repo=new Alienrepository();
 	//Get request to fetch data form database
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public List<Alien> getAliens() {
 	
 	System.out.println("getting called");
@@ -28,7 +29,7 @@ public class AlienResource {
 	//Can access specific id details of Alien instance a.
 	@GET
 	@Path("alien/{id}")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Alien getAlien(@PathParam("id") int id){
 		
 		return repo.getAlien(id);
@@ -37,6 +38,8 @@ public class AlienResource {
 	//Post request to insert data to database
 	@POST
 	@Path("alien")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Alien createAlien(Alien a1) {
 		System.out.println(a1);
 		repo.create(a1);
