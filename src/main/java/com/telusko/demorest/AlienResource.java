@@ -48,6 +48,7 @@ public class AlienResource {
 		return a1;
 		
 	}
+	//Put: To update the database
 	@PUT
 	@Path("alien")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
@@ -63,7 +64,7 @@ public class AlienResource {
 		return a1;
 		
 	}
-	
+	//Delete :to delete data from the database
 	@DELETE
 	@Path("alien/{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
