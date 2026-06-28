@@ -117,6 +117,8 @@ public void delete(int id) {
 	}
 }	
 
+
+//Without databse using list or manual repository
 //	List<Alien> alien;
 //	
 //    public Alienrepository(){
