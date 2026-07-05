@@ -1,4 +1,4 @@
-                                                         jersey rest api
+                                                                           jersey rest api
 
 1) After creating the jersey project using maven use glassfish.jersey quickstart artifact not sun.jersey
 2)to remove the error from index.jsp ad the targeted runtime in properties and set project facets webmodule to version 6.0 and java version to 21jre 
